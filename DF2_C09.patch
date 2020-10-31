@@ -1,0 +1,33 @@
+diff --color -bruN src/xclib.F ../vasp.5.4.4_mod_1/src/xclib.F
+--- src/xclib.F	2020-10-31 12:55:53.160991983 +0000
++++ ../vasp.5.4.4_mod_1/src/xclib.F	2020-10-31 12:54:15.908348088 +0000
+@@ -2243,6 +2243,9 @@
+           LEXCH=43
+         ELSE IF (CEXCH=='ML') THEN
+           LEXCH=44
++! CCX: DF2-C09 
++	ELSE IF (CEXCH=='C09') THEN
++          LEXCH=46
+ !vdw jk
+ !vdw TbB
+         ELSE IF (CEXCH=='CX') THEN
+diff --color -bruN src/xclib_grad.F ../vasp.5.4.4_mod_1/src/xclib_grad.F
+--- src/xclib_grad.F	2020-10-31 12:55:53.160991983 +0000
++++ ../vasp.5.4.4_mod_1/src/xclib_grad.F	2020-10-31 12:54:20.432378189 +0000
+@@ -665,6 +665,16 @@
+          FxPBE = P0**fftnt
+          expbe = exlda*FxPBE
+          Fs=fftnt*FxPBE/P0*(3.7020_q+69.32_q*S2+0.978_q*S4)
++        ELSE IF (LEXCH .eq. 46) then
++! CCX: added vdW-C09
++!PARAM1 is \mu
++!PARAM2 is \kappa
++!PARAM3 IS \alpha
++!use 0.0617, 1.245 and 0.0483 to get DF2-C09 exchange
++         P0=1._q+PARAM1*S2*EXP(-PARAM3*S2)
++         FxPBE = P0+PARAM2*(1._q-EXP(-PARAM3*S2/2._q))
++         expbe = exlda*FxPBE
++         Fs=2._q*PARAM1*EXP(-PARAM3*S2)*(1-PARAM1*PARAM3)+PARAM3*PARAM2*EXP(-PARAM3*S2/2._q)
+ !vdw jk
+       ELSE IF (LEXCH .eq. 45) THEN
+ !vdw TbB
