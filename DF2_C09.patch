@@ -6,7 +6,7 @@ diff --color -bruN src/xclib.F ../vasp.5.4.4_mod_1/src/xclib.F
          ELSE IF (CEXCH=='ML') THEN
            LEXCH=44
 +! CCX: DF2-C09 
-+	ELSE IF (CEXCH=='C09') THEN
++	ELSE IF (CEXCH=='C9') THEN
 +          LEXCH=46
  !vdw jk
  !vdw TbB
@@ -27,7 +27,7 @@ diff --color -bruN src/xclib_grad.F ../vasp.5.4.4_mod_1/src/xclib_grad.F
 +         P0=1._q+PARAM1*S2*EXP(-PARAM3*S2)
 +         FxPBE = P0+PARAM2*(1._q-EXP(-PARAM3*S2/2._q))
 +         expbe = exlda*FxPBE
-+         Fs=2._q*PARAM1*EXP(-PARAM3*S2)*(1-PARAM1*PARAM3)+PARAM3*PARAM2*EXP(-PARAM3*S2/2._q)
++         Fs=2._q*PARAM1*EXP(-PARAM3*S2)*(1-PARAM3*S2)+PARAM3*PARAM2*EXP(-PARAM3*S2/2._q)
  !vdw jk
        ELSE IF (LEXCH .eq. 45) THEN
  !vdw TbB
