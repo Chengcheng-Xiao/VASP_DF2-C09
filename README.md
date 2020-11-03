@@ -22,7 +22,7 @@ patch -p0 < DF2_C09.patch
 Add following tags to your `INCAR` file:
 
 ```
-GGA      = C09
+GGA      = C9
 LUSE_VDW = .TRUE.
 PARAM1   = 0.0617
 PARAM2   = 1.245
